@@ -9,7 +9,13 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "packageManager": "npm@10.2.4",
   "dependencies": {
+    "vite": "^5.2.0",
     "@dawa/design-system": "file:../design-system",
     "@tailwindcss/postcss": "^4.1.17",
     "clsx": "^2.1.0",
@@ -33,7 +39,6 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "typescript": "^5.2.2"
   }
 }
