@@ -1,0 +1,8 @@
+# Ensure Next.js/static assets are never rewritten
+/_next/*    /_next/:splat    200
+/static/*   /static/:splat   200
+
+# Force HTTPS on the production domain
+http://ecommercedawa.netlify.app/*   https://ecommercedawa.netlify.app/:splat   301!
+# Note: Do NOT add a SPA catch-all when using the Next.js Netlify plugin.
+# The plugin generates framework-aware redirects for SSR and static routes.

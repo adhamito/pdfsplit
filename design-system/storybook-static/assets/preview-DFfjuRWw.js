@@ -1,0 +1,1 @@
+const o={parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/}},options:{storySort:{order:["Components",["Button","Card","Input","Label","Badge","Avatar","Alert","Checkbox","Dialog","Select","Switch","Tabs","Progress","Textarea","*"],"Examples",["Login Form","Complete Form","Dashboard","*"]]}}}};export{o as default};

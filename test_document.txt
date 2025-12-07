@@ -1,0 +1,27 @@
+# Sample PDF Test File
+
+This is a test file to demonstrate the PDF Management System functionality.
+
+## Features Tested
+
+1. **PDF Upload**: Drag and drop or select files
+2. **PDF Validation**: System validates PDF files automatically
+3. **PDF Merge**: Combine multiple PDFs into one
+4. **PDF Split**: Extract individual pages from PDFs
+5. **Download**: Download processed files
+
+## System Status
+
+- Backend API: ✅ Running on http://localhost:5000
+- Frontend: ✅ Running on http://localhost:3000
+- Python Tools: ✅ Available
+- Automation: ✅ Ready
+
+## Test Instructions
+
+1. Open http://localhost:3000 in your browser
+2. Drag and drop PDF files or click to select
+3. Choose "Merge PDFs" or "Split PDF" operations
+4. Download the processed files
+
+The system is fully functional and ready for production use!

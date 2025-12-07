@@ -1,0 +1,19 @@
+# PDF Processing
+PyPDF2>=3.0.0
+PyMuPDF>=1.23.0  # For PDF preview generation
+
+# Web Framework
+Flask>=2.3.0
+Flask-CORS>=4.0.0
+
+# File Upload Handling
+Werkzeug>=2.3.0
+
+# Task Scheduling
+APScheduler>=3.10.0
+
+# Environment Variables
+python-dotenv>=1.0.0
+
+# Image Processing for previews
+Pillow>=10.0.0

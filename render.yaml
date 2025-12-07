@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: spiltpdf-backend
+    env: docker
+    rootDir: backend
+    plan: free
+    branch: main
+    numInstances: 1
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0

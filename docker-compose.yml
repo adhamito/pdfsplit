@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: pdf-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/temp:/app/temp
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this}
+      - MAX_CONTENT_LENGTH=52428800
+      - CLEANUP_MAX_AGE_HOURS=24
+    restart: unless-stopped
+    networks:
+      - pdf-network
+
+  frontend:
+    build: ./frontend
+    container_name: pdf-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - pdf-network
+
+  automation:
+    build: ./scripts
+    container_name: pdf-automation
+    volumes:
+      - ./pdfs:/app/pdfs
+      - ./merged:/app/merged
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - SCHEDULE_TIME=${SCHEDULE_TIME:-09:00}
+      - INPUT_FOLDER=/app/pdfs
+      - OUTPUT_FOLDER=/app/merged
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - pdf-network
+
+networks:
+  pdf-network:
+    driver: bridge
+
+volumes:
+  uploads:
+  temp:
+  pdfs:
+  merged:
+  logs:

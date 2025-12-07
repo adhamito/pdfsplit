@@ -1,0 +1,8 @@
+# PDF Processing
+PyPDF2>=3.0.0
+
+# Task Scheduling
+schedule>=1.2.0
+
+# Environment Variables
+python-dotenv>=1.0.0
