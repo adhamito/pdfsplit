@@ -26,21 +26,35 @@ app = Flask(__name__)
 CORS(app, origins=['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174', 'http://127.0.0.1:5175', 'https://deft-taffy-a8b825.netlify.app'])
 
 # Configuration
-UPLOAD_FOLDER = Path(__file__).parent / 'uploads'
-TEMP_FOLDER = Path(__file__).parent / 'temp'
-DATA_FOLDER = Path(__file__).parent / 'data'
+if os.environ.get('VERCEL'):
+    # Vercel-specific configuration (read-only file system except /tmp)
+    UPLOAD_FOLDER = Path('/tmp/uploads')
+    TEMP_FOLDER = Path('/tmp/temp')
+    DATA_FOLDER = Path('/tmp/data')
+else:
+    # Local/Standard configuration
+    UPLOAD_FOLDER = Path(__file__).parent / 'uploads'
+    TEMP_FOLDER = Path(__file__).parent / 'temp'
+    DATA_FOLDER = Path(__file__).parent / 'data'
+
 TEMPLATES_FILE = DATA_FOLDER / 'templates.json'
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB max file size
 ALLOWED_EXTENSIONS = {'pdf'}
 
 # Ensure directories exist
-UPLOAD_FOLDER.mkdir(exist_ok=True)
-TEMP_FOLDER.mkdir(exist_ok=True)
-DATA_FOLDER.mkdir(exist_ok=True)
+try:
+    UPLOAD_FOLDER.mkdir(exist_ok=True, parents=True)
+    TEMP_FOLDER.mkdir(exist_ok=True, parents=True)
+    DATA_FOLDER.mkdir(exist_ok=True, parents=True)
+except Exception as e:
+    print(f"Warning: Could not create directories: {e}")
 
 if not TEMPLATES_FILE.exists():
-    with open(TEMPLATES_FILE, 'w') as f:
-        json.dump([], f)
+    try:
+        with open(TEMPLATES_FILE, 'w') as f:
+            json.dump([], f)
+    except Exception as e:
+        print(f"Warning: Could not create templates file: {e}")
 
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
