@@ -218,6 +218,15 @@ def split_pdf():
         # Move split files to uploads directory
         download_urls = []
         if split_files:
+            # Create a ZIP file of split pages
+            zip_filename = f"split_{uuid.uuid4()}.zip"
+            zip_path = UPLOAD_FOLDER / zip_filename
+            
+            with zipfile.ZipFile(zip_path, 'w') as zipf:
+                for split_file in split_files:
+                    zipf.write(split_file, split_file.name)
+                    
+            # Move individual files (optional, but good for direct access if needed)
             for split_file in split_files:
                 final_path = UPLOAD_FOLDER / split_file.name
                 shutil.move(str(split_file), str(final_path))
@@ -233,7 +242,8 @@ def split_pdf():
                 'success': True,
                 'message': f'Successfully split PDF into {len(split_files)} pages',
                 'pages': len(split_files),
-                'download_urls': download_urls
+                'download_urls': download_urls,
+                'zip_url': f'/api/download/{zip_filename}'
             })
         else:
             return jsonify({'error': 'Failed to split PDF'}), 500
@@ -640,11 +650,15 @@ def download_file(filename):
         if not file_path.exists():
             return jsonify({'error': 'File not found'}), 404
         
+        mimetype = 'application/pdf'
+        if filename.lower().endswith('.zip'):
+            mimetype = 'application/zip'
+            
         return send_file(
             file_path,
             as_attachment=True,
             download_name=filename,
-            mimetype='application/pdf'
+            mimetype=mimetype
         )
         
     except Exception as e:

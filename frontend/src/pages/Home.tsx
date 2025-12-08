@@ -27,7 +27,7 @@ function Home() {
   // Split State
   const [splitFile, setSplitFile] = useState<File | null>(null)
   const [splitting, setSplitting] = useState(false)
-  const [splitResult, setSplitResult] = useState<{ success: boolean; message: string; download_urls?: string[] } | null>(null)
+  const [splitResult, setSplitResult] = useState<{ success: boolean; message: string; download_urls?: string[]; zip_url?: string } | null>(null)
   const [splitError, setSplitError] = useState<string | null>(null)
   const splitInputRef = useRef<HTMLInputElement>(null)
 
@@ -468,8 +468,18 @@ function Home() {
                   <CheckCircle2 className="h-4 w-4" />
                   <AlertTitle>Success</AlertTitle>
                   <AlertDescription className="mt-2">
-                    <p className="mb-4">{splitResult.message}</p>
-                    <p className="text-sm">Files have been split successfully. Check your download folder or server response.</p>
+                    <div className="flex flex-col gap-4">
+                      <p>{splitResult.message}</p>
+                      {splitResult.zip_url && (
+                        <div className="flex justify-start">
+                          <Button asChild size="sm" variant="outline" className="border-green-200 hover:bg-green-100 hover:text-green-700">
+                            <a href={splitResult.zip_url} download target="_blank" rel="noreferrer">
+                              Download All Pages (ZIP)
+                            </a>
+                          </Button>
+                        </div>
+                      )}
+                    </div>
                   </AlertDescription>
                 </Alert>
               )}
