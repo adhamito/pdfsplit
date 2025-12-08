@@ -1,6 +1,10 @@
 {
+  "workspaces": [
+    "frontend",
+    "design-system"
+  ],
   "scripts": {
-    "build": "cd frontend && npm install && npm run build"
+    "build": "npm run build --workspace=@dawa/design-system && npm run build --workspace=spiltpdf-frontend"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

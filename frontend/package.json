@@ -16,7 +16,7 @@
   "packageManager": "npm@10.2.4",
   "dependencies": {
     "vite": "^5.2.0",
-    "@dawa/design-system": "file:../design-system",
+    "@dawa/design-system": "^1.0.1",
     "@tailwindcss/postcss": "^4.1.17",
     "clsx": "^2.1.0",
     "lucide-react": "^0.344.0",
